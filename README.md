@@ -1,1 +1,3 @@
-C - Hello, World project
+C - Variables, if, else, while
+
+Holberton/ALX project.
