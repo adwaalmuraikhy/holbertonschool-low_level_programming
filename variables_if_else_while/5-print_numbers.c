@@ -1,4 +1,4 @@
-nano 5-print_numbers.c#include <stdio.h>
+#include <stdio.h>
 
 /**
  * main - prints all single digit numbers of base 10 starting from 0
@@ -7,11 +7,11 @@ nano 5-print_numbers.c#include <stdio.h>
  */
 int main(void)
 {
-	int i;
+	int n;
 
-	for (i = 0; i < 10; i++)
-		printf("%d", i);
+	for (n = 0; n < 10; n++)
+		putchar(n + '0');
 
-	printf("\n");
+	putchar('\n');
 	return (0);
 }
