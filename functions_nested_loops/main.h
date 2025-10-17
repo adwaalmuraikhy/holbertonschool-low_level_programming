@@ -2,6 +2,7 @@
 #define MAIN_H
 
 int _putchar(char c);
+int add(int, int);
 void times_table(void);
 
 #endif /* MAIN_H */
