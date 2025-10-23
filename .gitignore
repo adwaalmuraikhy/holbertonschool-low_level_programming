@@ -1,2 +1,3 @@
-more_functions_nested_loops/2-mul
-more_functions_nested_loops/2-mul
+# build outputs
+*.o
+4-print_most_numbers
