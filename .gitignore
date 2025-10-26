@@ -1,11 +1,7 @@
-# build artifacts
 *.o
-a.out
+*.out
+*.exe
 */a.out
-**/a.out
-test
-*/test
-**/test
-*.swp
+*~
 .DS_Store
-EO
+pointers_arrays_strings/1-swap
