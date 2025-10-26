@@ -1,20 +1,11 @@
-# Compiled objects & binaries
+# build artifacts
 *.o
-*.out
-*.exe
-*.a
-*.so
-*.dSYM/
-*.swp
-
-# Builds
+a.out
 */a.out
 **/a.out
-**/*.o
-
-# Backup / temp
-*~
+test
+*/test
+**/test
+*.swp
 .DS_Store
-
-# Holberton/ALX typical
-*/_putchar.c
+EO
