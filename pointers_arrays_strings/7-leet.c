@@ -5,8 +5,7 @@
  * @s: Pointer to the string.
  *
  * Replaces: a/A->4, e/E->3, o/O->0, t/T->7, l/L->1
- * Constraints: only one if, only two loops,
- * no switch and no ternary.
+ * Constraints: only one if and only two loops.
  *
  * Return: Pointer to the modified string.
  */
