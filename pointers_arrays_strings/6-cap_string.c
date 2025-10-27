@@ -4,10 +4,10 @@
  * cap_string - Capitalizes all words of a string.
  * @s: Pointer to the string.
  *
- * Separators: space, tab, newline, ',', ';', '.', '!', '?',
- *             '"', '(', ')', '{', '}'
+ * Word separators: space, tab, newline, ',', ';', '.', '!', '?',
+ *                  '"', '(', ')', '{', '}'.
  *
- * Return: Pointer to the modified string (s).
+ * Return: Pointer to the modified string.
  */
 char *cap_string(char *s)
 {
@@ -21,7 +21,7 @@ char *cap_string(char *s)
 	{
 		for (j = 0; sep[j] != '\0'; j++)
 		{
-			if (s[i - 1] == sep[j] && (s[i] >= 'a' && s[i] <= 'z'))
+			if (s[i - 1] == sep[j] && s[i] >= 'a' && s[i] <= 'z')
 			{
 				s[i] -= ('a' - 'A');
 				break;
