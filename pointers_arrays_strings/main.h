@@ -5,3 +5,4 @@ int _putchar(char c);
 void _puts(char *str);
 
 #endif /* MAIN_H */
+char *_strchr(char *s, char c);
