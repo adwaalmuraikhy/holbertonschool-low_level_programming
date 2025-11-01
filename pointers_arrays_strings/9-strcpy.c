@@ -7,9 +7,9 @@
 
 /**
  * _strcpy - copies the string pointed to by src (including '\0')
- *		to the buffer pointed to by dest
+ *           to the buffer pointed to by dest
  * @dest: destination buffer
- * @src: source string
+ * @src:  source string
  *
  * Return: pointer to dest
  */

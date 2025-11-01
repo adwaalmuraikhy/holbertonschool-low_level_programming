@@ -1,5 +1,5 @@
-#ifndef POINTERS_ARRAYS_STRINGS_H
-#define POINTERS_ARRAYS_STRINGS_H
+#ifndef POINTERS_ARRAYS_STRINGS_MAIN_H
+#define POINTERS_ARRAYS_STRINGS_MAIN_H
 
 int _putchar(char c);
 void _puts(char *str);
@@ -8,7 +8,6 @@ void rev_string(char *s);
 void puts2(char *str);
 void puts_half(char *str);
 void print_array(int *a, int n);
-
-#endif /* POINTERS_ARRAYS_STRINGS_H */
-
 char *_strcpy(char *dest, char *src);
+
+#endif /* POINTERS_ARRAYS_STRINGS_MAIN_H */
