@@ -3,11 +3,10 @@
 
 /**
  * _strpbrk - searches a string for any of a set of bytes
- * @s: input string to scan
+ * @s: string to scan
  * @accept: set of bytes to match
  *
- * Return: pointer to the first byte in s that matches any byte in accept,
- *         or NULL if no such byte is found
+ * Return: pointer to first byte in s that matches any in accept, or NULL
  */
 char *_strpbrk(char *s, char *accept)
 {
