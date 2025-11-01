@@ -4,8 +4,8 @@
  * puts_half - prints the second half of a string, then a newline
  * @str: pointer to string
  *
- * If the length is odd, prints the last n chars where
- * n = (length_of_the_string + 1) / 2.
+ * If the length is odd, prints the last n characters where
+ * n = (length_of_the_string + 1) / 2
  */
 void puts_half(char *str)
 {
