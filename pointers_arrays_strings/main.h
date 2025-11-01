@@ -11,3 +11,4 @@ void print_array(int *a, int n);
 
 #endif /* POINTERS_ARRAYS_STRINGS_H */
 
+char *_strcpy(char *dest, char *src);
