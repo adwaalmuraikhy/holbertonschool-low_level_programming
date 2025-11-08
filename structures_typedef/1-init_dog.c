@@ -2,13 +2,13 @@
 
 /**
  * init_dog - initialize a variable of type struct dog
- * @d: pointer to struct dog to initialize
+ * @d: pointer to the struct dog to initialize
  * @name: dog's name
  * @age: dog's age
  * @owner: dog's owner
  *
- * Description: If @d is not NULL, assigns the given values
- * to the struct dog fields.
+ * Description: Assigns the provided values to the fields of @d
+ * if @d isn't NULL.
  */
 void init_dog(struct dog *d, char *name, float age, char *owner)
 {

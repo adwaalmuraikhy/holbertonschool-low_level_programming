@@ -14,7 +14,7 @@ struct dog
 	char *owner;
 };
 
-/* prototypes */
+/* Prototype for task 1 */
 void init_dog(struct dog *d, char *name, float age, char *owner);
 
 #endif /* DOG_H */
