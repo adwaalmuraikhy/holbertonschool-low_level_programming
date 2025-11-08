@@ -1,5 +1,6 @@
 0x0E. C - Structures, typedef
 
-This directory contains the header file for Task 0:
-- dog.h  -> defines struct dog with fields: name, age, owner.
-
+Task 0: dog.h defines a new type struct dog with fields:
+- name (char *)
+- age  (float)
+- owner (char *)

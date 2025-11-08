@@ -1,11 +1,21 @@
 #ifndef DOG_H
 #define DOG_H
 
+/*
+ * File: dog.h
+ * Auth: Adwa Almuraikhy
+ * Desc: Header that defines a new type struct dog.
+ */
+
+#include <stddef.h>
+
 /**
  * struct dog - basic dog structure
- * @name: pointer to the dog's name
- * @age: dog's age
- * @owner: pointer to the owner's name
+ * @name: dog's name (string)
+ * @age: dog's age (float)
+ * @owner: owner's name (string)
+ *
+ * Description: Defines a dog with a name, age and owner.
  */
 struct dog
 {
@@ -15,5 +25,3 @@ struct dog
 };
 
 #endif /* DOG_H */
-
-
