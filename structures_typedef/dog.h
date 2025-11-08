@@ -14,11 +14,13 @@ struct dog
 	char *owner;
 };
 
-/* New typedef alias for struct dog (task 3) */
+/* typedef alias */
 typedef struct dog dog_t;
 
-/* Prototypes from previous tasks */
+/* prototypes */
 void init_dog(struct dog *d, char *name, float age, char *owner);
 void print_dog(struct dog *d);
+dog_t *new_dog(char *name, float age, char *owner);
+void free_dog(dog_t *d); /* (للمهمة 5 لاحقًا) */
 
 #endif /* DOG_H */
