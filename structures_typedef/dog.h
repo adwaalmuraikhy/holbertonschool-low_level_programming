@@ -14,7 +14,10 @@ struct dog
 	char *owner;
 };
 
-/* Prototypes */
+/* New typedef alias for struct dog (task 3) */
+typedef struct dog dog_t;
+
+/* Prototypes from previous tasks */
 void init_dog(struct dog *d, char *name, float age, char *owner);
 void print_dog(struct dog *d);
 
