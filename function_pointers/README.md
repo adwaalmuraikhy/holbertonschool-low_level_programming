@@ -3,3 +3,7 @@ Task 0: print_name - calls a function pointer to print a name.
 Files:
 - 0-print_name.c
 - function_pointers.h
+
+Task 1: array_iterator - executes a function on each element of an int array.
+Files:
+- 1-array_iterator.c
