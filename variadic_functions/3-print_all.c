@@ -1,8 +1,8 @@
 #include "variadic_functions.h"
 
 /**
- * print_all - prints anything based on a format string
- * @format: list of argument types: c (char), i (int), f (float), s (char *)
+ * print_all - prints values according to a format string
+ * @format: types list: c (char), i (int), f (float), s (char *)
  *
  * Return: void
  */
@@ -10,8 +10,7 @@ void print_all(const char * const format, ...)
 {
 	va_list ap;
 	unsigned int i = 0;
-	char *s;
-	char *sep = "";
+	char *s, *sep = "";
 
 	va_start(ap, format);
 
@@ -50,3 +49,4 @@ void print_all(const char * const format, ...)
 	printf("\n");
 	va_end(ap);
 }
+
