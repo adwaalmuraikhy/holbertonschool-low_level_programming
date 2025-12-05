@@ -70,7 +70,8 @@ void print_data(unsigned char *e_ident)
  */
 void print_version(unsigned char *e_ident)
 {
-	printf("  Version:                           %d", e_ident[EI_VERSION]);
+	printf("  Version:                           %d",
+	       e_ident[EI_VERSION]);
 	if (e_ident[EI_VERSION] == EV_CURRENT)
 		printf(" (current)");
 	printf("\n");
@@ -105,7 +106,8 @@ void print_osabi(unsigned char *e_ident)
  */
 void print_abi_version(unsigned char *e_ident)
 {
-	printf("  ABI Version:                       %d\n", e_ident[EI_ABIVERSION]);
+	printf("  ABI Version:                       %d\n",
+	       e_ident[EI_ABIVERSION]);
 }
 
 /**
@@ -149,9 +151,9 @@ unsigned long get32(unsigned char *p, int data)
  *
  * Return: 64-bit value
  */
-unsigned long long get64(unsigned char *p, int data)
+unsigned long get64(unsigned char *p, int data)
 {
-	unsigned long long val = 0;
+	unsigned long val = 0;
 	int i;
 
 	if (data == ELFDATA2MSB)
@@ -208,7 +210,7 @@ void print_type(unsigned char *e_ident, unsigned char *buf)
  */
 void print_entry(unsigned char *e_ident, unsigned char *buf)
 {
-	unsigned long long entry;
+	unsigned long entry;
 	int data = e_ident[EI_DATA];
 
 	if (e_ident[EI_CLASS] == ELFCLASS32)
@@ -216,8 +218,7 @@ void print_entry(unsigned char *e_ident, unsigned char *buf)
 	else
 		entry = get64(buf + 24, data);
 
-	printf("  Entry point address:               0x%lx\n",
-	       (unsigned long)entry);
+	printf("  Entry point address:               0x%lx\n", entry);
 }
 
 /**
@@ -235,22 +236,24 @@ int main(int argc, char **argv)
 
 	if (argc != 2)
 	{
-		dprintf(STDERR_FILENO, "Usage: elf_header elf_filename\n");
+		dprintf(STDERR_FILENO,
+			"Usage: elf_header elf_filename\n");
 		exit(98);
 	}
 
 	fd = open(argv[1], O_RDONLY);
 	if (fd == -1)
 	{
-		dprintf(STDERR_FILENO, "Error: Can't read file %s\n", argv[1]);
+		dprintf(STDERR_FILENO,
+			"Error: Can't read file %s\n", argv[1]);
 		exit(98);
 	}
 
 	r = read(fd, hdr, sizeof(hdr));
 	if (r < 0 || r < 24)
 	{
-		dprintf(STDERR_FILENO, "Error: Can't read ELF header from %s\n",
-			argv[1]);
+		dprintf(STDERR_FILENO,
+			"Error: Can't read ELF header from %s\n", argv[1]);
 		close(fd);
 		exit(98);
 	}
@@ -258,7 +261,8 @@ int main(int argc, char **argv)
 	if (hdr[0] != 0x7f || hdr[1] != 'E' ||
 	    hdr[2] != 'L' || hdr[3] != 'F')
 	{
-		dprintf(STDERR_FILENO, "Error: %s is not an ELF file\n", argv[1]);
+		dprintf(STDERR_FILENO,
+			"Error: %s is not an ELF file\n", argv[1]);
 		close(fd);
 		exit(98);
 	}
@@ -274,7 +278,8 @@ int main(int argc, char **argv)
 
 	if (close(fd) == -1)
 	{
-		dprintf(STDERR_FILENO, "Error: Can't close fd %d\n", fd);
+		dprintf(STDERR_FILENO,
+			"Error: Can't close fd %d\n", fd);
 		exit(98);
 	}
 
