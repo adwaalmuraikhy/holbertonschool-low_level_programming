@@ -2,8 +2,6 @@
 #include <stdlib.h>
 #include <string.h>
 
-char g[] = "A-CHRDw87lNS0E9B2TibgpnMVys5XzvtOGJcYLU+4mjW6fxqZeF3Qa1rPhdKIouk";
-
 /**
  * f1 - compute index of first char
  * @s: username
@@ -71,40 +69,6 @@ int f4_seed(char *s)
 }
 
 /**
- * f5 - compute index of fifth char
- * @s: username
- *
- * Return: index in charset
- */
-int f5(char *s)
-{
-	int i;
-	int sum = 0;
-
-	for (i = 0; s[i]; i++)
-		sum += s[i] * s[i];
-	return ((sum ^ 0xef) & 0x3f);
-}
-
-/**
- * f6 - compute index of sixth char
- * @s: username
- *
- * Return: index in charset
- */
-int f6(char *s)
-{
-	int i;
-	int rnd = 0;
-	int len;
-
-	len = s[0];
-	for (i = 0; i < len; i++)
-		rnd = rand();
-	return ((rnd ^ 0xe5) & 0x3f);
-}
-
-/**
  * main - keygen for crackme5
  * @argc: number of arguments
  * @argv: argument vector
@@ -113,8 +77,13 @@ int f6(char *s)
  */
 int main(int argc, char **argv)
 {
-	char *user;
+	const char *g = "A-CHRDw87lNS0E9B2TibgpnMVys5XzvtOGJcYLU+4mjW6fxqZeF3Qa1rPhdKIouk";
 	char key[7];
+	char *user;
+	int i;
+	int sum;
+	int len;
+	int rnd;
 
 	if (argc != 2)
 		return (1);
@@ -128,10 +97,18 @@ int main(int argc, char **argv)
 	srand(f4_seed(user));
 	key[3] = g[rand() & 0x3f];
 
-	key[4] = g[f5(user)];
-	key[5] = g[f6(user)];
-	key[6] = '\0';
+	sum = 0;
+	for (i = 0; user[i]; i++)
+		sum += user[i] * user[i];
+	key[4] = g[(sum ^ 0xef) & 0x3f];
 
+	len = user[0];
+	rnd = 0;
+	for (i = 0; i < len; i++)
+		rnd = rand();
+	key[5] = g[(rnd ^ 0xe5) & 0x3f];
+
+	key[6] = '\0';
 	printf("%s", key);
 	return (0);
 }
