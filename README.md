@@ -1,2 +1,2 @@
 # Doubly Linked Lists
-This project contains implementations of doubly linked lists in C.
+This project implements basic doubly linked list functions in C.
