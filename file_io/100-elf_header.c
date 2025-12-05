@@ -1,6 +1,9 @@
 #include "main.h"
 #include <elf.h>
 #include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <fcntl.h>
 
 /**
  * print_magic - prints ELF magic bytes
@@ -70,8 +73,7 @@ void print_data(unsigned char *e_ident)
  */
 void print_version(unsigned char *e_ident)
 {
-	printf("  Version:                           %d",
-	       e_ident[EI_VERSION]);
+	printf("  Version:                           %d", e_ident[EI_VERSION]);
 	if (e_ident[EI_VERSION] == EV_CURRENT)
 		printf(" (current)");
 	printf("\n");
@@ -106,8 +108,7 @@ void print_osabi(unsigned char *e_ident)
  */
 void print_abi_version(unsigned char *e_ident)
 {
-	printf("  ABI Version:                       %d\n",
-	       e_ident[EI_ABIVERSION]);
+	printf("  ABI Version:                       %d\n", e_ident[EI_ABIVERSION]);
 }
 
 /**
@@ -119,9 +120,14 @@ void print_abi_version(unsigned char *e_ident)
  */
 unsigned short get16(unsigned char *p, int data)
 {
+	unsigned short val;
+
 	if (data == ELFDATA2MSB)
-		return ((unsigned short)p[0] << 8) | p[1];
-	return ((unsigned short)p[1] << 8) | p[0];
+		val = ((unsigned short)p[0] << 8) | p[1];
+	else
+		val = ((unsigned short)p[1] << 8) | p[0];
+
+	return (val);
 }
 
 /**
@@ -133,15 +139,24 @@ unsigned short get16(unsigned char *p, int data)
  */
 unsigned long get32(unsigned char *p, int data)
 {
+	unsigned long val;
+
 	if (data == ELFDATA2MSB)
-		return ((unsigned long)p[0] << 24) |
-		       ((unsigned long)p[1] << 16) |
-		       ((unsigned long)p[2] << 8) |
-		       (unsigned long)p[3];
-	return ((unsigned long)p[3] << 24) |
-	       ((unsigned long)p[2] << 16) |
-	       ((unsigned long)p[1] << 8) |
-	       (unsigned long)p[0];
+	{
+		val = ((unsigned long)p[0] << 24) |
+			((unsigned long)p[1] << 16) |
+			((unsigned long)p[2] << 8) |
+			(unsigned long)p[3];
+	}
+	else
+	{
+		val = ((unsigned long)p[3] << 24) |
+			((unsigned long)p[2] << 16) |
+			((unsigned long)p[1] << 8) |
+			(unsigned long)p[0];
+	}
+
+	return (val);
 }
 
 /**
@@ -149,7 +164,7 @@ unsigned long get32(unsigned char *p, int data)
  * @p: pointer to bytes
  * @data: EI_DATA value
  *
- * Return: 64-bit value
+ * Return: 64-bit value (stored in unsigned long)
  */
 unsigned long get64(unsigned char *p, int data)
 {
@@ -166,6 +181,7 @@ unsigned long get64(unsigned char *p, int data)
 		for (i = 7; i >= 0; i--)
 			val = (val << 8) | p[i];
 	}
+
 	return (val);
 }
 
@@ -236,16 +252,14 @@ int main(int argc, char **argv)
 
 	if (argc != 2)
 	{
-		dprintf(STDERR_FILENO,
-			"Usage: elf_header elf_filename\n");
+		dprintf(STDERR_FILENO, "Usage: elf_header elf_filename\n");
 		exit(98);
 	}
 
 	fd = open(argv[1], O_RDONLY);
 	if (fd == -1)
 	{
-		dprintf(STDERR_FILENO,
-			"Error: Can't read file %s\n", argv[1]);
+		dprintf(STDERR_FILENO, "Error: Can't read file %s\n", argv[1]);
 		exit(98);
 	}
 
@@ -254,16 +268,17 @@ int main(int argc, char **argv)
 	{
 		dprintf(STDERR_FILENO,
 			"Error: Can't read ELF header from %s\n", argv[1]);
-		close(fd);
+		if (close(fd) == -1)
+			dprintf(STDERR_FILENO, "Error: Can't close fd %d\n", fd);
 		exit(98);
 	}
 
 	if (hdr[0] != 0x7f || hdr[1] != 'E' ||
 	    hdr[2] != 'L' || hdr[3] != 'F')
 	{
-		dprintf(STDERR_FILENO,
-			"Error: %s is not an ELF file\n", argv[1]);
-		close(fd);
+		dprintf(STDERR_FILENO, "Error: %s is not an ELF file\n", argv[1]);
+		if (close(fd) == -1)
+			dprintf(STDERR_FILENO, "Error: Can't close fd %d\n", fd);
 		exit(98);
 	}
 
@@ -278,8 +293,7 @@ int main(int argc, char **argv)
 
 	if (close(fd) == -1)
 	{
-		dprintf(STDERR_FILENO,
-			"Error: Can't close fd %d\n", fd);
+		dprintf(STDERR_FILENO, "Error: Can't close fd %d\n", fd);
 		exit(98);
 	}
 
