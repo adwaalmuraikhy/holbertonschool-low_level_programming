@@ -77,7 +77,9 @@ int f4_seed(char *s)
  */
 int main(int argc, char **argv)
 {
-	const char *g = "A-CHRDw87lNS0E9B2TibgpnMVys5XzvtOGJcYLU+4mjW6fxqZeF3Qa1rPhdKIouk";
+	const char *g =
+		"A-CHRDw87lNS0E9B2TibgpnMVys5XzvtOGJcYLU+4mjW6fxq"
+		"ZeF3Qa1rPhdKIouk";
 	char key[7];
 	char *user;
 	int i;
