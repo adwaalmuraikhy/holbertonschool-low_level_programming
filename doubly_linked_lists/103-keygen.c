@@ -1,135 +1,69 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 /**
- * f4 - finds the biggest char in username and uses it to generate a number
- * @usrn: username
- * @len: length of username
+ * main - generate a valid key for crackme5
+ * @argc: number of arguments
+ * @argv: array of arguments
  *
- * Return: an index between 0 and 63
- */
-int f4(char *usrn, int len)
-{
-	int ch;
-	int vch;
-	unsigned int rand_num;
-
-	ch = *usrn;
-	vch = 0;
-	while (vch < len)
-	{
-		if (ch < usrn[vch])
-			ch = usrn[vch];
-		vch++;
-	}
-	srand(ch ^ 14);
-	rand_num = rand();
-	return (rand_num & 63);
-}
-
-/**
- * f5 - sums squares of chars in username
- * @usrn: username
- * @len: length of username
- *
- * Return: an index between 0 and 63
- */
-int f5(char *usrn, int len)
-{
-	int ch;
-	int vch;
-
-	ch = 0;
-	vch = 0;
-	while (vch < len)
-	{
-		ch = ch + usrn[vch] * usrn[vch];
-		vch++;
-	}
-	return (((unsigned int)ch ^ 239) & 63);
-}
-
-/**
- * f6 - generates a random index using first char of username
- * @usrn: username
- *
- * Return: an index between 0 and 63
- */
-int f6(char *usrn)
-{
-	int ch;
-	int vch;
-
-	ch = 0;
-	vch = 0;
-	while (vch < *usrn)
-	{
-		ch = rand();
-		vch++;
-	}
-	return (((unsigned int)ch ^ 229) & 63);
-}
-
-/**
- * main - generates key for crackme5
- * @argc: argument count
- * @argv: argument vector
- *
- * Return: Always 0
+ * Return: 0 on success, 1 on error
  */
 int main(int argc, char **argv)
 {
-	char keygen[7];
-	int len, ch, vch;
-	long alph[] = {
-		0x3877445248432d41,
-		0x42394530534e6c37,
-		0x4d6e706762695432,
-		0x74767a5835737956,
-		0x2b554c59634a474f,
-		0x71786636576a6d34,
-		0x723161513346655a,
-		0x6b756f494b646850
-	};
+	char *user;
+	char key[7];
+	char max_char;
+	char *charset;
+	size_t i, j;
+	int rnd;
 
-	(void)argc;
+	if (argc != 2)
+		return (1);
 
-	/* ----------- f1: length-based char ----------- */
-	for (len = 0; argv[1][len]; len++)
-		;
-	keygen[0] = ((char *)alph)[(len ^ 59) & 63];
+	user = argv[1];
+	charset = "A-CHRDw87lNS0E9B2TibgpnMVys5XzvtOGJcYLU+4mjW6fxq"
+		  "ZeF3Qa1rPhdKIouk";
 
-	/* ----------- f2: sum of chars ----------- */
-	ch = 0;
-	vch = 0;
-	while (vch < len)
-	{
-		ch = ch + argv[1][vch];
-		vch++;
-	}
-	keygen[1] = ((char *)alph)[(ch ^ 79) & 63];
+	/* 1st char */
+	j = (strlen(user) ^ 0x3b) & 0x3f;
+	key[0] = charset[j];
 
-	/* ----------- f3: product of chars ----------- */
-	ch = 1;
-	vch = 0;
-	while (vch < len)
-	{
-		ch = argv[1][vch] * ch;
-		vch++;
-	}
-	keygen[2] = ((char *)alph)[(ch ^ 85) & 63];
+	/* 2nd char */
+	j = 0;
+	for (i = 0; user[i]; i++)
+		j += user[i];
+	key[1] = charset[(j ^ 0x4f) & 0x3f];
 
-	/* ----------- f4 / f5 / f6 ----------- */
-	keygen[3] = ((char *)alph)[f4(argv[1], len)];
-	keygen[4] = ((char *)alph)[f5(argv[1], len)];
+	/* 3rd char */
+	j = 1;
+	for (i = 0; user[i]; i++)
+		j *= user[i];
+	key[2] = charset[(j ^ 0x55) & 0x3f];
 
-	srand(len ^ 0); /* ensure rand() is initialized before f6 */
-	keygen[5] = ((char *)alph)[f6(argv[1])];
+	/* 4th char */
+	max_char = user[0];
+	for (i = 0; user[i]; i++)
+		if (user[i] > max_char)
+			max_char = user[i];
+	srand(max_char ^ 0xe);
+	j = rand();
+	key[3] = charset[j & 0x3f];
 
-	keygen[6] = '\0';
+	/* 5th char */
+	j = 0;
+	for (i = 0; user[i]; i++)
+		j += user[i] * user[i];
+	key[4] = charset[(j ^ 0xef) & 0x3f];
 
-	for (ch = 0; keygen[ch]; ch++)
-		printf("%c", keygen[ch]);
+	/* 6th char */
+	max_char = user[0];
+	while (max_char--)
+		rnd = rand();
+	key[5] = charset[(rnd ^ 0xe5) & 0x3f];
+
+	key[6] = '\0';
+	printf("%s", key);
 
 	return (0);
 }
