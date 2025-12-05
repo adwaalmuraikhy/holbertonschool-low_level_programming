@@ -89,7 +89,28 @@ void print_data(unsigned char *e_ident)
 	}
 }
 
-/**
+/**void print_osabi(unsigned char *e_ident)
+{
+        printf("  OS/ABI:                            ");
+        switch (e_ident[EI_OSABI])
+        {
+        case ELFOSABI_SYSV:
+                printf("UNIX - System V\n");
+                break;
+        case ELFOSABI_LINUX:
+                printf("UNIX - Linux\n");
+                break;
+        case ELFOSABI_FREEBSD:
+                printf("UNIX - FreeBSD\n");
+                break;
+        case ELFOSABI_SOLARIS:
+                printf("UNIX - Solaris\n");
+                break;
+        default:
+                printf("<unknown: %x>\n", e_ident[EI_OSABI]);
+        }
+}
+
  * print_version - prints ELF version
  * @e_ident: pointer to the ELF identification bytes
  */
@@ -265,3 +286,4 @@ int main(int argc, char **argv)
 	close_elf(fd);
 	return (0);
 }
+
