@@ -1,1 +1,1 @@
-Hash tables project - Holberton School
+Hash tables project
