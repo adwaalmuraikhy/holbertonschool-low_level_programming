@@ -3,9 +3,9 @@
 #include "hash_tables.h"
 
 /**
- * main - check the code
+ * main - Entry point for test
  *
- * Return: Always EXIT_SUCCESS.
+ * Return: Always EXIT_SUCCESS
  */
 int main(void)
 {
